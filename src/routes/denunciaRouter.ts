@@ -1,15 +1,15 @@
+// routes/denunciaRouter.ts
 import { Router } from 'express';
-import { criarDenuncia, listarDenuncias, obterDenuncia, atualizarDenuncia, deletarDenuncia, listarDenunciasPorCrime } from '../controllers/denunciaController';
+import { criarDenuncia, listarDenuncias, listarDenunciasPorCrime, obterDenuncia, atualizarDenuncia, deletarDenuncia } from '../controllers/denunciaController';
+import { authenticateToken } from '../middleware/authenticateToken';
 
 const router = Router();
 
-router.post('/', criarDenuncia);
-router.get('/', listarDenuncias);
-router.get('/:id', obterDenuncia);
-router.put('/:id', atualizarDenuncia);
-router.delete('/:id', deletarDenuncia);
-
-// Rota para listar denúncias de um crime específico
-router.get('/crime/:crimeId', listarDenunciasPorCrime);
+router.post('/', authenticateToken, criarDenuncia);
+router.get('/', authenticateToken, listarDenuncias);
+router.get('/crime/:crimeId', authenticateToken, listarDenunciasPorCrime);
+router.get('/:id', authenticateToken, obterDenuncia);
+router.put('/:id', authenticateToken, atualizarDenuncia);
+router.delete('/:id', authenticateToken, deletarDenuncia);
 
 export default router;

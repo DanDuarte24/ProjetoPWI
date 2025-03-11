@@ -1,3 +1,4 @@
+// repositories/denunciaRepository.ts
 import { Denuncia, IDenuncia } from '../models/denuncia';
 
 class DenunciaRepository {
@@ -5,7 +6,13 @@ class DenunciaRepository {
   private nextId: number = 1;
 
   async create(denunciaData: Omit<IDenuncia, 'id' | 'data'>): Promise<Denuncia> {
-    const denuncia = new Denuncia(this.nextId++, denunciaData.crimeId, denunciaData.descricao, denunciaData.nomeDenunciante, denunciaData.localizacao);
+    const denuncia = new Denuncia(
+      this.nextId++,
+      denunciaData.crimeId,
+      denunciaData.descricao,
+      denunciaData.nomeDenunciante,
+      denunciaData.localizacao
+    );
     this.denuncias.push(denuncia);
     return denuncia;
   }

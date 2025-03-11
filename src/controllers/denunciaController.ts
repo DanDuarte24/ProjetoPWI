@@ -1,26 +1,30 @@
+// controllers/denunciaController.ts
 import { Request, Response, NextFunction } from 'express';
-import denunciaService from '../services/denunciaService.js';
+import denunciaService from '../services/denunciaService';
 
 export const criarDenuncia = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    console.log('Requisição para criar denúncia:', req.body);
     const { crimeId, descricao, nomeDenunciante, endereco, coordenadas } = req.body;
     if (
-      !crimeId || 
-      !descricao || 
-      !nomeDenunciante || 
-      !endereco || 
-      !coordenadas || 
-      coordenadas.lat === undefined || 
+      !crimeId ||
+      !descricao ||
+      !nomeDenunciante ||
+      !endereco ||
+      !coordenadas ||
+      coordenadas.lat === undefined ||
       coordenadas.lng === undefined
     ) {
-      return res.status(400).json({ 
-        mensagem: 'crimeId, descrição, nome do denunciante, endereço e coordenadas (lat, lng) são obrigatórios' 
-      });
+      return res.status(400).json({ message: 'Os campos crimeId, descrição, nome do denunciante, endereço e coordenadas (lat, lng) são obrigatórios.' });
     }
     const localizacao = { endereco, coordenadas };
     const denuncia = await denunciaService.createDenuncia({ crimeId, descricao, nomeDenunciante, localizacao });
     res.status(201).json(denuncia);
   } catch (error: any) {
+    console.error('Erro em criarDenuncia:', error);
+    if (error.message === 'Crime não encontrado.') {
+      return res.status(404).json({ message: error.message });
+    }
     next(error);
   }
 };
@@ -40,7 +44,7 @@ export const obterDenuncia = async (req: Request, res: Response, next: NextFunct
     const denuncia = await denunciaService.getDenunciaById(id);
     res.json(denuncia);
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -51,7 +55,7 @@ export const atualizarDenuncia = async (req: Request, res: Response, next: NextF
     const denuncia = await denunciaService.updateDenuncia(id, { descricao, nomeDenunciante });
     res.json(denuncia);
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -61,7 +65,7 @@ export const deletarDenuncia = async (req: Request, res: Response, next: NextFun
     await denunciaService.deleteDenuncia(id);
     res.status(204).send();
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 

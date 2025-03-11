@@ -1,13 +1,12 @@
+// controllers/crimeController.ts
 import { Request, Response, NextFunction } from 'express';
-import crimeService from '../services/crimeService.js';
+import crimeService from '../services/crimeService';
 
 export const criarCrime = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { nome, descricao, endereco, coordenadas } = req.body;
     if (!nome || !descricao || !endereco || !coordenadas || coordenadas.lat === undefined || coordenadas.lng === undefined) {
-      return res.status(400).json({ 
-        mensagem: 'Nome, descrição, endereço e coordenadas (lat, lng) são obrigatórios' 
-      });
+      return res.status(400).json({ message: 'Nome, descrição, endereço e coordenadas (lat, lng) são obrigatórios.' });
     }
     const localizacao = { endereco, coordenadas };
     const crime = await crimeService.createCrime({ nome, descricao, localizacao });
@@ -32,7 +31,7 @@ export const obterCrime = async (req: Request, res: Response, next: NextFunction
     const crime = await crimeService.getCrimeById(id);
     res.json(crime);
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -43,7 +42,7 @@ export const atualizarCrime = async (req: Request, res: Response, next: NextFunc
     const crime = await crimeService.updateCrime(id, { nome, descricao });
     res.json(crime);
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
@@ -53,6 +52,6 @@ export const deletarCrime = async (req: Request, res: Response, next: NextFuncti
     await crimeService.deleteCrime(id);
     res.status(204).send();
   } catch (error: any) {
-    res.status(404).json({ mensagem: error.message });
+    res.status(404).json({ message: error.message });
   }
 };

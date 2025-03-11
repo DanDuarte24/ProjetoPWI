@@ -1,3 +1,4 @@
+// models/denuncia.ts
 export interface ICoordenadas {
   lat: number;
   lng: number;

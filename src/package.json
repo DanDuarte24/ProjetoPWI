@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.js",
   "dependencies": {
+    "@types/node": "^22.13.9",
     "accepts": "^1.3.8",
     "array-flatten": "^1.1.1",
     "body-parser": "^1.20.3",
@@ -14,11 +15,12 @@
     "content-type": "^1.0.5",
     "cookie": "^0.7.1",
     "cookie-signature": "^1.0.6",
+    "cors": "^2.8.5",
     "debug": "^2.6.9",
     "depd": "^2.0.0",
     "destroy": "^1.2.0",
-    "dunder-proto": "^1.0.1",
     "dev": "ts-node /server.ts",
+    "dunder-proto": "^1.0.1",
     "ee-first": "^1.1.1",
     "encodeurl": "^2.0.0",
     "es-define-property": "^1.0.1",
@@ -40,6 +42,7 @@
     "iconv-lite": "^0.4.24",
     "inherits": "^2.0.4",
     "ipaddr.js": "^1.9.1",
+    "jsonwebtoken": "^9.0.2",
     "math-intrinsics": "^1.1.0",
     "media-typer": "^0.3.0",
     "merge-descriptors": "^1.0.3",
@@ -48,6 +51,7 @@
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
     "ms": "^2.0.0",
+    "multer": "^1.4.5-lts.1",
     "negotiator": "^0.6.3",
     "object-inspect": "^1.13.4",
     "on-finished": "^2.4.1",
@@ -71,13 +75,23 @@
     "type-is": "^1.6.18",
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
-    "vary": "^1.1.2"
+    "vary": "^1.1.2",
+    "yup": "^1.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/multer": "^1.4.12",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
 }
