@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import denunciaService from '../services/denunciaService';
 
-export const criarDenuncia = async (req: Request, res: Response, next: NextFunction) => {
+export const criarDenuncia = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('Requisição para criar denúncia:', req.body);
     const { crimeId, descricao, nomeDenunciante, endereco, coordenadas } = req.body;
@@ -15,7 +15,7 @@ export const criarDenuncia = async (req: Request, res: Response, next: NextFunct
       coordenadas.lat === undefined ||
       coordenadas.lng === undefined
     ) {
-      return res.status(400).json({ message: 'Os campos crimeId, descrição, nome do denunciante, endereço e coordenadas (lat, lng) são obrigatórios.' });
+      res.status(400).json({ message: 'Os campos crimeId, descrição, nome do denunciante, endereço e coordenadas (lat, lng) são obrigatórios.' });
     }
     const localizacao = { endereco, coordenadas };
     const denuncia = await denunciaService.createDenuncia({ crimeId, descricao, nomeDenunciante, localizacao });
@@ -23,7 +23,7 @@ export const criarDenuncia = async (req: Request, res: Response, next: NextFunct
   } catch (error: any) {
     console.error('Erro em criarDenuncia:', error);
     if (error.message === 'Crime não encontrado.') {
-      return res.status(404).json({ message: error.message });
+       res.status(404).json({ message: error.message });
     }
     next(error);
   }
