@@ -5,6 +5,7 @@ import crimeRoutes from './routes/crimeRouter';
 import denunciaRoutes from './routes/denunciaRouter';
 import authRoutes from './routes/authRouter';
 import uploadRoutes from './routes/uploadRouter';
+import userRoutes from './routes/userRouter';
 import { requestLogger } from './middleware/requestLogger';
 import { errorHandler } from './middleware/errorHandler';
 
@@ -20,6 +21,7 @@ app.use('/api/auth', authRoutes);
 // Rotas protegidas – cada rota exige token no header "Authorization: Bearer <token>"
 app.use('/api/crimes', crimeRoutes);
 app.use('/api/denuncias', denunciaRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
 
 app.use(errorHandler);
