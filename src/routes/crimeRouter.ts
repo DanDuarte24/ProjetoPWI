@@ -1,4 +1,3 @@
-// routes/crimeRouter.ts
 import { Router } from 'express';
 import { criarCrime, listarCrimes, obterCrime, atualizarCrime, deletarCrime } from '../controllers/crimeController';
 import { authenticateToken } from '../middleware/authenticateToken';
