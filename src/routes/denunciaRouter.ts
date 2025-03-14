@@ -1,4 +1,3 @@
-// routes/denunciaRouter.ts
 import { Router } from 'express';
 import { criarDenuncia, listarDenuncias, listarDenunciasPorCrime, obterDenuncia, atualizarDenuncia, deletarDenuncia } from '../controllers/denunciaController';
 import { authenticateToken } from '../middleware/authenticateToken';
