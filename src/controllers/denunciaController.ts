@@ -18,7 +18,9 @@ export const criarDenuncia = async (req: Request, res: Response, next: NextFunct
       res.status(400).json({ message: 'Os campos crimeId, descrição, nome do denunciante, endereço e coordenadas (lat, lng) são obrigatórios.' });
     }
     const localizacao = { endereco, coordenadas };
-    const denuncia = await denunciaService.createDenuncia({ crimeId, descricao, nomeDenunciante, localizacao });
+    const imagemUrl = req.file?.path;
+    
+    const denuncia = await denunciaService.createDenuncia({ crimeId, descricao, nomeDenunciante, localizacao, imagemUrl: req.file?.path });
     res.status(201).json(denuncia);
   } catch (error: any) {
     console.error('Erro em criarDenuncia:', error);
