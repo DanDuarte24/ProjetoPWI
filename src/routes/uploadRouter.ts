@@ -1,3 +1,4 @@
+// routes/uploadRouter.ts
 import { Router } from 'express';
 import multer from 'multer';
 import { uploadImage } from '../controllers/uploadController';
